@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Expendinture - Laundry Management System with QRCode</title>
+    <title>Customer - Laundry Management System with QRCode</title>
     <link rel="shortcut icon" href="assets/img/washing-clothes.gif" type="image/gif">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
@@ -58,30 +58,30 @@
                     </div>
                 </nav>
                 <div class="container-fluid">
-                    <h3 class="text-dark mb-4">Expenditure Data Report</h3>
+                    <div class="d-sm-flex justify-content-between align-items-center mb-4">
+                        <h3 class="text-dark mb-0">Customer Management</h3><button class="btn btn-primary btn-sm d-none d-sm-inline-block" type="button" data-bs-target="#add" data-bs-toggle="modal"><i class="fas fa-user-check fa-sm text-white-50"></i>&nbsp;Create Customer</button>
+                    </div>
                     <div class="card shadow">
                         <div class="card-header py-3">
-                            <div class="row">
-                                <div class="col">
-                                    <p class="text-primary m-0 fw-bold">Expenditure Lists</p>
-                                </div>
-                            </div>
+                            <p class="text-primary m-0 fw-bold">Lists of Customers</p>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive table mt-2" role="grid" aria-describedby="dataTable_info">
                                 <table class="table table-striped my-0" id="dataTable">
                                     <thead>
                                         <tr>
-                                            <th>ID #</th>
-                                            <th>Transaction ID</th>
-                                            <th>Item</th>
-                                            <th>Qty</th>
-                                            <th>User</th>
-                                            <th>Date</th>
+                                            <th>ID</th>
+                                            <th>Fullname</th>
+                                            <th>Address</th>
+                                            <th>Contact No.</th>
+                                            <th>Date Created</th>
+                                            <th class="text-center">Option</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php include_once 'functions/views/expenditure.php'; ?>
+                                        <?php
+                                            include_once 'functions/views/customers.php';
+                                        ?>
                                     </tbody>
                                     <tfoot>
                                         <tr></tr>
@@ -99,16 +99,70 @@
             </footer>
         </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
-    <div class="modal fade" role="dialog" tabindex="-1" id="confirm">
+    <div class="modal fade" role="dialog" tabindex="-1" id="add">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Generate Report</h4><button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
+                    <h4 class="modal-title">Create Customer</h4><button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Are you sure you want to print this report?</p>
+                    <form action="functions/add-customer.php" method="post">
+                        <div class="row">
+                            <div class="col">
+                                <div class="mb-3"><label class="form-label" for="first_name"><strong>First Name</strong></label><input class="form-control" type="text" placeholder="John" name="firstname" required=""></div>
+                            </div>
+                            <div class="col">
+                                <div class="mb-3"><label class="form-label" for="last_name"><strong>Last Name</strong></label><input class="form-control" type="text" placeholder="Doe" name="lastname" required=""></div>
+                            </div>
+                        </div>
+                        <div class="mb-3"><label class="form-label" for="first_name"><strong>Address</strong></label><input class="form-control" type="text" placeholder="Address" name="address" required=""></div>
+                        <div class="mb-3"><label class="form-label" for="first_name"><strong>Contact</strong>&nbsp;No.</label><input class="form-control" type="text" placeholder="Contact No." name="contact" required="" minlength="11" maxlength="11"></div>
+                    
                 </div>
-                <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary dt-button buttons-print" type="button">Print</button></div>
+                <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="submit">Save</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" role="dialog" tabindex="-1" id="update">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Update Customer</h4><button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="functions/update-customer.php" method="post">
+                        <input type="hidden" name="data_id">
+                        <div class="row">
+                            <div class="col">
+                                <div class="mb-3"><label class="form-label" for="first_name"><strong>First Name</strong></label><input class="form-control" type="text" placeholder="John" name="firstname" required=""></div>
+                            </div>
+                            <div class="col">
+                                <div class="mb-3"><label class="form-label" for="last_name"><strong>Last Name</strong></label><input class="form-control" type="text" placeholder="Doe" name="lastname" required=""></div>
+                            </div>
+                        </div>
+                        <div class="mb-3"><label class="form-label" for="first_name"><strong>Address</strong></label><input class="form-control" type="text" placeholder="Address" name="address" required=""></div>
+                        <div class="mb-3"><label class="form-label" for="first_name"><strong>Contact</strong>&nbsp;No.</label><input class="form-control" type="text" placeholder="Contact No." name="contact" minlength="11" maxlength="11"></div>
+                    
+                </div>
+                <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-primary" type="submit">Save</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" role="dialog" tabindex="-1" id="remove">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Remove Cusotmer</h4><button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to remove this customer?</p>
+                </div>
+                <form action="functions/remove-customer.php" method="post">
+                    <input type="hidden" name="data_id">
+                    <div class="modal-footer"><button class="btn btn-light" type="button" data-bs-dismiss="modal">Close</button><button class="btn btn-danger" type="submit">Remove</button></div>
+                </form>
             </div>
         </div>
     </div>
@@ -141,6 +195,25 @@
             swal("Error!", message, "error");
         }
         
+        $('a[data-bs-target="#update"]').on('click', function() {
+                var id = $(this).data('id');
+                var firstname = $(this).data('firstname');
+                var lastname = $(this).data('lastname');
+                var address = $(this).data('address');
+                var contact = $(this).data('contact');
+                console.log(id, firstname, lastname, address, contact);
+                $('input[name="data_id"]').val(id);
+                $('input[name="firstname"]').val(firstname);
+                $('input[name="lastname"]').val(lastname);
+                $('input[name="address"]').val(address);
+                $('input[name="contact"]').val(contact);
+            });
+        $('a[data-bs-target="#remove"]').on('click', function() {
+            var id = $(this).data('id');
+            console.log(id); 
+            $('input[name="data_id"]').val(id);
+        });
+
     </script>
 </body>
 
